@@ -9,11 +9,11 @@ import { AuthInterceptor } from 'app/core/auth/auth.interceptor';
     ],
     providers: [
         AuthService,
-        {
-            provide : HTTP_INTERCEPTORS,
-            useClass: AuthInterceptor,
-            multi   : true
-        }
+        // {
+        //     provide : HTTP_INTERCEPTORS,
+        //     useClass: AuthInterceptor,
+        //     multi   : true
+        // }
     ]
 })
 export class AuthModule

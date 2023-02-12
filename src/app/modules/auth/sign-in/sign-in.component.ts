@@ -28,6 +28,7 @@ export class AuthSignInComponent implements OnInit
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _authService: AuthService,
+        //private authService: Auth2Service,
         private _formBuilder: FormBuilder,
         private _router: Router
     )
@@ -45,8 +46,8 @@ export class AuthSignInComponent implements OnInit
     {
         // Create the form
         this.signInForm = this._formBuilder.group({
-            email     : ['hughes.brian@company.com', [Validators.required, Validators.email]],
-            password  : ['admin', Validators.required],
+            username    : ['', [Validators.required, Validators.email]],
+            password    : ['', [Validators.required, Validators.minLength(4)]],
             rememberMe: ['']
         });
     }
@@ -75,16 +76,16 @@ export class AuthSignInComponent implements OnInit
         // Sign in
         this._authService.signIn(this.signInForm.value)
             .subscribe(
-                () => {
+                (response) => {
 
                     // Set the redirect url.
                     // The '/signed-in-redirect' is a dummy url to catch the request and redirect the user
                     // to the correct page after a successful sign in. This way, that url can be set via
                     // routing file and we don't have to touch here.
-                    const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
+                    //const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
 
                     // Navigate to the redirect url
-                    this._router.navigateByUrl(redirectURL);
+                    this._router.navigateByUrl('/example');
 
                 },
                 (response) => {
@@ -93,12 +94,28 @@ export class AuthSignInComponent implements OnInit
                     this.signInForm.enable();
 
                     // Reset the form
-                    this.signInNgForm.resetForm();
+                    //this.signInNgForm.resetForm();
+
+                    let message = 'Upps!! algo salió mal. Compruebe su conexión y vuelva a intentarlo';
+                    switch (response.error.message) {
+                        case 'Some fields contains error on login': {
+                            message = 'Algunos campos contienen error al iniciar sesión. Asegúrese que su correo esté correctamente escrito';
+                          break;
+                        }
+                        case 'Invalid credentials': {
+                            message = 'Credenciales no válidas';
+                          break;
+                        }
+                        case 'Access Denied!!! You have exceeded the maximum number of login attempts. Wait a moment to try again.': {
+                            message = '¡¡¡Acceso denegado!!! Ha superado el número máximo de intentos de inicio de sesión. Espere un momento para volver a intentarlo.';
+                          break;
+                        }
+                      }
 
                     // Set the alert
                     this.alert = {
                         type   : 'error',
-                        message: 'Wrong email or password'
+                        message: message
                     };
 
                     // Show the alert
