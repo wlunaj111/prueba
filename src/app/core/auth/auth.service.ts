@@ -145,9 +145,20 @@ export class AuthService
      *
      * @param user
      */
-    signUp(user: { name: string; email: string; password: string; company: string }): Observable<any>
+    //ESTE SE PUEDE MEJORAR
+    signUp(user: { firstName: string; lastName: string; email: string; plainPassword: string }): Observable<any>
     {
-        return this._httpClient.post('api/auth/sign-up', user);
+        return this._httpClient.post(environment.signUp, {
+            "form": {
+              "firstName": user.firstName,
+              "lastName": user.lastName,
+              "email": user.email,
+              "plainPassword": user.plainPassword
+            },
+            "extra": {
+              "isThirdPartyUser": false,
+              "thirdPartyProvider": null
+            }});
     }
 
     /**

@@ -7,12 +7,12 @@
             </div>
 
             <!-- Title -->
-            <div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight">Sign up</div>
+            <div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight">Regístrate</div>
             <div class="flex items-baseline mt-0.5 font-medium">
-                <div>Already have an account?</div>
+                <div>¿Ya tienes cuenta?</div>
                 <a
                     class="ml-1 text-primary-500 hover:underline"
-                    [routerLink]="['/pages/authentication/sign-in']">Sign in
+                    [routerLink]="['/sign-in']">Inicia sesión aquí
                 </a>
             </div>
 
@@ -32,41 +32,53 @@
                 class="mt-8"
                 [formGroup]="signUpForm">
 
-                <!-- Name field -->
+                <!-- First name field -->
                 <mat-form-field class="w-full">
-                    <mat-label>Full name</mat-label>
+                    <mat-label>Nombre</mat-label>
                     <input
-                        id="name"
+                        id="firstName"
                         matInput
-                        [formControlName]="'name'">
-                    <mat-error *ngIf="signUpForm.get('name').hasError('required')">
-                        Full name is required
+                        [formControlName]="'firstName'">
+                    <mat-error *ngIf="signUpForm.get('firstName').hasError('required')">
+                        El nombre es requerido
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Last name field -->
+                <mat-form-field class="w-full">
+                    <mat-label>Apellido</mat-label>
+                    <input
+                        id="lastName"
+                        matInput
+                        [formControlName]="'lastName'">
+                    <mat-error *ngIf="signUpForm.get('lastName').hasError('required')">
+                        El apellido es requerido
                     </mat-error>
                 </mat-form-field>
 
                 <!-- Email field -->
                 <mat-form-field class="w-full">
-                    <mat-label>Email address</mat-label>
+                    <mat-label>Correo</mat-label>
                     <input
                         id="email"
                         matInput
                         [formControlName]="'email'">
                     <mat-error *ngIf="signUpForm.get('email').hasError('required')">
-                        Email address is required
+                        El correo es requerido
                     </mat-error>
                     <mat-error *ngIf="signUpForm.get('email').hasError('email')">
-                        Please enter a valid email address
+                        Por favor entre un correo válido
                     </mat-error>
                 </mat-form-field>
 
                 <!-- Password field -->
                 <mat-form-field class="w-full">
-                    <mat-label>Password</mat-label>
+                    <mat-label>Contraseña</mat-label>
                     <input
-                        id="password"
+                        id="plainPassword"
                         matInput
-                        type="password"
-                        [formControlName]="'password'"
+                        type="plainPassword"
+                        [formControlName]="'plainPassword'"
                         #passwordField>
                     <button
                         mat-icon-button
@@ -82,22 +94,25 @@
                             *ngIf="passwordField.type === 'text'"
                             [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
                     </button>
-                    <mat-error>
-                        Password is required
+                    <mat-error *ngIf="signUpForm.get('plainPassword').hasError('required')">
+                        La contraseña es requerida
+                    </mat-error>
+                    <mat-error *ngIf="signUpForm.get('plainPassword').hasError('minlength')">
+                        La contraseña debe tener más de 3 caracteres
                     </mat-error>
                 </mat-form-field>
 
                 <!-- Company field -->
-                <mat-form-field class="w-full">
+                <!-- <mat-form-field class="w-full">
                     <mat-label>Company</mat-label>
                     <input
                         id="company-confirm"
                         matInput
                         [formControlName]="'company'">
-                </mat-form-field>
+                </mat-form-field> -->
 
                 <!-- ToS and PP -->
-                <div class="inline-flex items-end w-full mt-1.5">
+                <!-- <div class="inline-flex items-end w-full mt-1.5">
                     <mat-checkbox
                         [color]="'primary'"
                         [formControlName]="'agreements'">
@@ -112,7 +127,7 @@
                             [routerLink]="['./']">Privacy Policy
                         </a>
                     </mat-checkbox>
-                </div>
+                </div> -->
 
                 <!-- Submit button -->
                 <button
@@ -122,7 +137,7 @@
                     [disabled]="signUpForm.disabled"
                     (click)="signUp()">
                     <span *ngIf="!signUpForm.disabled">
-                        Create your free account
+                        Registrar
                     </span>
                     <mat-progress-spinner
                         *ngIf="signUpForm.disabled"
@@ -157,12 +172,13 @@
         <!-- Content -->
         <div class="z-10 relative w-full max-w-2xl">
             <div class="text-7xl font-bold leading-none text-gray-100">
-                <div>Welcome to</div>
-                <div>our community</div>
+                <div>Bienvenido a</div>
+                <div>nuestro sitio</div>
             </div>
             <div class="mt-6 text-lg tracking-tight leading-6 text-gray-400">
-                Fuse helps developers to build organized and well coded dashboards full of beautiful and rich modules.
-                Join us and start building your application today.
+                Nuestro sitio ofrece una experiencia única e interesante para todos los usuarios.
+                Con contenido actualizado y relevante, numerosas funciones interactivas y un diseño atractivo,
+                encontrarás todo lo que necesitas en un solo lugar. ¡Únete ahora y descubre lo emocionante que puede ser navegar por nuestro sitio!
             </div>
             <div class="flex items-center mt-8">
                 <div class="flex flex-0 items-center -space-x-1.5">
@@ -179,7 +195,7 @@
                         class="flex-0 w-10 h-10 rounded-full ring-4 ring-offset-1 ring-gray-800 ring-offset-gray-800 object-cover"
                         src="assets/images/avatars/male-16.jpg">
                 </div>
-                <div class="ml-4 font-medium tracking-tight text-gray-400">More than 17k people joined us, it's your turn</div>
+                <div class="ml-4 font-medium tracking-tight text-gray-400">Más de 17k personas nos acompañan, es tu turno</div>
             </div>
         </div>
     </div>
