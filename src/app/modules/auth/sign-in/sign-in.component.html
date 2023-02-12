@@ -71,8 +71,11 @@
                             *ngIf="passwordField.type === 'text'"
                             [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
                     </button>
-                    <mat-error>
+                    <mat-error *ngIf="signInForm.get('password').hasError('required')">
                         La contraseña es requerida
+                    </mat-error>
+                    <mat-error *ngIf="signInForm.get('password').hasError('minlength')">
+                        La contraseña debe tener más de 3 caracteres
                     </mat-error>
                 </mat-form-field>
 
