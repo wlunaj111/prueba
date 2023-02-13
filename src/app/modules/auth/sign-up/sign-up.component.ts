@@ -109,9 +109,9 @@ export class AuthSignUpComponent implements OnInit
                     // if (response.error.message == 'The user already has an account.'){
                     //     message = 'Ya existe un usuario con estos datos, por favor intente con otro correo.';
                     // }
-
+                    let responseMessage = response.error.message || '';
                     let message = 'Upps!! algo salió mal. Compruebe su conexión y vuelva a intentarlo';
-                    switch (response.error.message) {
+                    switch (responseMessage) {
                         case 'The user already has an account.': {
                             message = 'Ya existe un usuario con estos datos, por favor intente con otro correo.';
                           break;

@@ -96,8 +96,9 @@ export class AuthSignInComponent implements OnInit
                     // Reset the form
                     //this.signInNgForm.resetForm();
 
+                    let responseMessage = response.error.message || '';
                     let message = 'Upps!! algo salió mal. Compruebe su conexión y vuelva a intentarlo';
-                    switch (response.error.message) {
+                    switch (responseMessage) {
                         case 'Some fields contains error on login': {
                             message = 'Algunos campos contienen error al iniciar sesión. Asegúrese que su correo esté correctamente escrito';
                           break;
