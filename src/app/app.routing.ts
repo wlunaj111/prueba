@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-//import { AuthGuard } from 'app/core/auth/guards/auth.guard';
+import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 //mport { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { InitialDataResolver } from 'app/app.resolvers';
@@ -39,7 +39,7 @@ export const appRoutes: Route[] = [
     // Auth routes for authenticated users
     {
         path: '',
-        //canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         //canActivateChild: [AuthGuard],
         component: LayoutComponent,
         data: {
@@ -66,7 +66,7 @@ export const appRoutes: Route[] = [
     // Admin routes
     {
         path       : '',
-        //canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         //canActivateChild: [AuthGuard],
         component  : LayoutComponent,
         resolve    : {
